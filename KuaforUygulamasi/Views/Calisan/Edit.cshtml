@@ -1,0 +1,61 @@
+﻿@model KuaforUygulamasi.ViewModels.CalisanViewModel
+
+@{
+    ViewData["Title"] = "Çalışan Düzenle";
+}
+
+<div class="container mt-4">
+    <h2>@ViewData["Title"]</h2>
+
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="ID" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Ad" class="form-label"></label>
+            <input asp-for="Ad" class="form-control" />
+            <span asp-validation-for="Ad" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Soyad" class="form-label"></label>
+            <input asp-for="Soyad" class="form-control" />
+            <span asp-validation-for="Soyad" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="SelectedUzmanlikAlanlari" class="form-label"></label>
+            <select asp-for="SelectedUzmanlikAlanlari" class="form-select" multiple>
+                @foreach (var uzmanlik in Model.TumUzmanlikAlanlari)
+                {
+                    <option value="@uzmanlik">@uzmanlik</option>
+                }
+            </select>
+            <span asp-validation-for="SelectedUzmanlikAlanlari" class="text-danger"></span>
+            <small class="form-text text-muted">Birden fazla seçim için Ctrl tuşunu basılı tutun.</small>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="MusaitlikBaslangic" class="form-label"></label>
+            <input asp-for="MusaitlikBaslangic" class="form-control" type="time" />
+            <span asp-validation-for="MusaitlikBaslangic" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="MusaitlikBitis" class="form-label"></label>
+            <input asp-for="MusaitlikBitis" class="form-control" type="time" />
+            <span asp-validation-for="MusaitlikBitis" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+            <a asp-action="Index" class="btn btn-secondary">İptal</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
